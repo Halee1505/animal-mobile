@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="0dp">
+
+    <data>
+        <!-- Declare ViewModel and other bindings here -->
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0dp">
+
+
+        <TextView
+            android:id="@+id/detailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="366dp"
+            android:layout_below="@+id/detailImageView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="74dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text=". Yêu cầu về các đối tượng Logic sử dụng a. Trong chương trình chỉ có 1 đối tượng Activity là MainActivity b. Các màn hình MH-1, MH-2 đều sử dụng Fragment để hiển thị màn hình giao diện chức năng c. Tại màn MH-1.1, sử dụng DrawerLayout để hiển thị danh sách loài động vật, người dùng kéo từ trái sang để hiển thị danh sách này d. Tại màn MH-1.3 sử dụng RecyclerView để hiển thị danh sách các con vật cùng loài e. Tại màn MH-2, sử dụng ViewPager để hiển thị danh sách chi tiết thông tin một con vật, người dùng sẽ vuốt sang trái - phải để chuyển sang con vật tiếp theo 3. Yêu cầu cơ bản " />
+
+        <ImageView
+            android:id="@+id/detailImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="0dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/banner" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="36dp"
+            android:layout_height="40dp"
+
+            android:layout_below="@+id/detailImageView"
+            android:layout_alignBottom="@+id/detailTextView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-3dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="479dp"
+            app:srcCompat="@drawable/ic_heart" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="317dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/detailImageView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="466dp"
+            android:layout_toStartOf="@+id/icon"
+            android:text="TextView"
+            android:textColor="@color/orange_700"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</layout>

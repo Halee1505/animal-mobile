@@ -1,32 +1,45 @@
-// DetailActivity.java
 package com.funix.animal.ui.detail;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.funix.animal.R;
+import com.funix.animal.database.AnimalDao;
+import com.funix.animal.model.Animal;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
-    private ViewPager2 viewPager;
-    private ViewPagerAdapter adapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        viewPager = findViewById(R.id.view_pager);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
 
-        // Dummy data, replace with actual animal details
-        List<String> animalDetails = List.of("Animal 1", "Animal 2", "Animal 3");
+        AnimalDao animalDao = new AnimalDao(this);
+        ArrayList<Animal> animalList = animalDao.getAllAnimals();
 
-        adapter = new ViewPagerAdapter(this, animalDetails);
-        viewPager.setAdapter(adapter);
+        List<String> animalNames ;
+        if (animalList != null && !animalList.isEmpty()) {
+            animalNames = new ArrayList<>();
+            for (Animal animal : animalList) {
+                animalNames.add(animal.getName());
+            }
+            } else {
+            animalNames = new ArrayList<>();
+        }
 
-        // Set the current item to the selected animal
-        int currentItem = getIntent().getIntExtra("current_item", 0);
-        viewPager.setCurrentItem(currentItem, false);
+        if (animalNames != null && !animalNames.isEmpty()) {
+            // Set up the ViewPager with the adapter
+            DetailPagerAdapter adapter = new DetailPagerAdapter(this, animalNames);
+            viewPager.setAdapter(adapter);
+        } else {
+            // Handle case where animal names list is null or empty
+            // You can show a message or a placeholder fragment
+        }
     }
 }

@@ -1,4 +1,3 @@
-// ViewPagerAdapter.java
 package com.funix.animal.ui.detail;
 
 import androidx.annotation.NonNull;
@@ -8,22 +7,23 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentStateAdapter {
-    private List<String> animalDetails;
+public class DetailPagerAdapter extends FragmentStateAdapter {
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<String> animalDetails) {
+    private List<String> animalNames;
+
+    public DetailPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<String> animalNames) {
         super(fragmentActivity);
-        this.animalDetails = animalDetails;
+        this.animalNames = animalNames;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-    return DetailFragment.newInstance(animalDetails.get(position));
+        return DetailFragment.newInstance(animalNames.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return animalDetails.size();
+        return animalNames.size();
     }
 }

@@ -1,11 +1,16 @@
 package com.funix.animal;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,7 +18,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.funix.animal.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,13 +60,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+        // Inflate custom layout for menu items
+        int[] menuItemIds = {R.id.nav_seas, R.id.nav_mammals, R.id.nav_birds};
+        int[] menuItemIcons = {R.drawable.icon_seas, R.drawable.icon_mammals, R.drawable.icon_birds};
+        String[] menuItemTitles = {getString(R.string.menu_seas), getString(R.string.menu_mammals), getString(R.string.menu_birds)};
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        for (int i = 0; i < menuItemIds.length; i++) {
+            MenuItem menuItem = navigationView.getMenu().findItem(menuItemIds[i]);
+            if (menuItem != null) {
+                View customView = LayoutInflater.from(this).inflate(R.layout.menu_item_with_image, null);
+                MenuItemCompat.setActionView(menuItem, customView);
+
+                ImageView imageView = customView.findViewById(R.id.menu_item_image);
+                TextView textView = customView.findViewById(R.id.menu_item_title);
+
+                imageView.setImageResource(menuItemIcons[i]);
+                textView.setText(menuItemTitles[i]);
+            }
+        }
     }
 
     @Override

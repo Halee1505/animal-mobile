@@ -12,9 +12,9 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <!--    animal app-->
-    <string name="menu_seas">Seas</string>
+    <string name="menu_seas">Seas   </string>
     <string name="menu_mammals">Mammals</string>
-    <string name="menu_birds">Birds</string>
+    <string name="menu_birds">Birds   </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="animal">Animal</string>
 

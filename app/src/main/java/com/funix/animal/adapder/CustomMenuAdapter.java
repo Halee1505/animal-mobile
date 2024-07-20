@@ -1,4 +1,4 @@
-package com.funix.animal.adapter;
+package com.funix.animal.adapder;
 
 import android.content.Context;
 import android.view.LayoutInflater;

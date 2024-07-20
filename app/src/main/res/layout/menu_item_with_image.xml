@@ -7,14 +7,18 @@
 
     <ImageView
         android:id="@+id/menu_item_image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="menu view" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/menu_item_title"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:text="Your Title"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="@color/orange_700"
+        android:textSize="20sp" />
 </LinearLayout>

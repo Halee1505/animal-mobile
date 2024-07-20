@@ -16,6 +16,7 @@ import com.funix.animal.model.Animal;
 
 public class DetailFragment extends Fragment {
 
+    private static final String ARG_ANIMAL_NAME = "detailText";
     private FragmentDetailBinding binding;
     private AnimalDao animalDao;
     private Animal animal;
@@ -27,12 +28,11 @@ public class DetailFragment extends Fragment {
         View root = binding.getRoot();
 
         animalDao = new AnimalDao(getContext());
-
-        // Retrieve the itemId argument
+        // Retrieve the animal name argument
         if (getArguments() != null) {
-            String detailText = DetailFragmentArgs.fromBundle(getArguments()).getDetailText();
+            String animalName = getArguments().getString(ARG_ANIMAL_NAME);
             // Query the database to get the animal details by title
-            animal = animalDao.getAnimalByName(detailText);
+            animal = animalDao.getAnimalByName(animalName);
             if (animal != null) {
                 // Set the text and image
                 binding.textTitle.setText(animal.getName());
@@ -49,9 +49,9 @@ public class DetailFragment extends Fragment {
             }
         }
 
-
         return root;
     }
+
     private void updateFavoriteIcon() {
         if (animal.isFav()) {
             binding.icon.setImageResource(R.drawable.ic_heart_full);
@@ -74,10 +74,11 @@ public class DetailFragment extends Fragment {
         }
         binding = null;
     }
-    public static DetailFragment newInstance(String animalDetail) {
+
+    public static DetailFragment newInstance(String animalName) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
-        args.putString("animal_detail", animalDetail);
+        args.putString(ARG_ANIMAL_NAME, animalName);
         fragment.setArguments(args);
         return fragment;
     }

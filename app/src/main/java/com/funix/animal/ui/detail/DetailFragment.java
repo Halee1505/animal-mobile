@@ -7,19 +7,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.bumptech.glide.Glide;
-import com.funix.animal.R;
 import com.funix.animal.database.AnimalDao;
 import com.funix.animal.databinding.FragmentDetailBinding;
 import com.funix.animal.model.Animal;
 
-public class DetailFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final String ARG_ANIMAL_NAME = "detailText";
+public class DetailFragment extends Fragment {
     private FragmentDetailBinding binding;
     private AnimalDao animalDao;
-    private Animal animal;
+    private List<Animal> animalList;
+    private ViewPager2 viewPager;
+    private DetailPagerAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -28,58 +30,17 @@ public class DetailFragment extends Fragment {
         View root = binding.getRoot();
 
         animalDao = new AnimalDao(getContext());
-        // Retrieve the animal name argument
-        if (getArguments() != null) {
-            String animalName = getArguments().getString(ARG_ANIMAL_NAME);
-            // Query the database to get the animal details by title
-            animal = animalDao.getAnimalByName(animalName);
-            if (animal != null) {
-                // Set the text and image
-                binding.textTitle.setText(animal.getName());
-                binding.detailTextView.setText(animal.getContent());
-                Glide.with(this).load(animal.getPhoto()).into(binding.detailImageView);
-                updateFavoriteIcon();
-
-                binding.icon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toggleFavorite();
-                    }
-                });
-            }
+        animalList = animalDao.getAllAnimals();
+        System.out.println("animal:" + animalList.get(0));
+        List<String> animalNames = new ArrayList<>();
+        for (Animal animal : animalList) {
+            animalNames.add(animal.getName());
         }
+
+        viewPager = binding.viewPager;
+        adapter = new DetailPagerAdapter(this, animalNames);
+        viewPager.setAdapter(adapter);
 
         return root;
-    }
-
-    private void updateFavoriteIcon() {
-        if (animal.isFav()) {
-            binding.icon.setImageResource(R.drawable.ic_heart_full);
-        } else {
-            binding.icon.setImageResource(R.drawable.ic_heart);
-        }
-    }
-
-    private void toggleFavorite() {
-        animal.setFav(!animal.isFav());
-        animalDao.updateAnimal(animal);
-        updateFavoriteIcon();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (animalDao != null) {
-            animalDao.close();
-        }
-        binding = null;
-    }
-
-    public static DetailFragment newInstance(String animalName) {
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_ANIMAL_NAME, animalName);
-        fragment.setArguments(args);
-        return fragment;
     }
 }

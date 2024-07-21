@@ -39,7 +39,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Animal item = animalList.get(position);
-        System.out.println("item.getName() = " + position);
         holder.title.setText(item.getName());
         Glide.with(holder.itemView.getContext()).load(item.getPhoto()).into(holder.imageView);
         if (item.isFav()) {

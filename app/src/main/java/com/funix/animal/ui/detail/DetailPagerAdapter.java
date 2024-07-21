@@ -8,18 +8,18 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.List;
 
 public class DetailPagerAdapter extends FragmentStateAdapter {
-
     private List<String> animalNames;
 
-    public DetailPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<String> animalNames) {
-        super(fragmentActivity);
+    public DetailPagerAdapter(@NonNull Fragment fragment, List<String> animalNames) {
+        super(fragment);
         this.animalNames = animalNames;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return DetailFragment.newInstance(animalNames.get(position));
+        System.out.println("position:" + position);
+        return DetailPageFragment.newInstance(animalNames.get(position));
     }
 
     @Override

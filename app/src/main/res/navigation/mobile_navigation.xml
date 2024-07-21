@@ -4,25 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.funix.animal.ui.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/nav_seas"
         android:name="com.funix.animal.ui.seas.SeasFragment"
         android:label="@string/menu_seas"
         tools:layout="@layout/fragment_seas" >
-        <!-- Add this action -->
         <action
             android:id="@+id/action_nav_seas_to_detailFragment"
             app:destination="@id/nav_detail"
             app:enterAnim="@android:anim/fade_in" />
         <argument
-            android:name="detailText"
+            android:name="animal_name"
             app:argType="string"
-            android:defaultValue="Default Detail Text" />
+            android:defaultValue="Default Animal Name" />
+        <argument
+            android:name="animal_type"
+            app:argType="string"
+            android:defaultValue="Default Animal Type" />
     </fragment>
 
     <fragment
@@ -34,10 +39,14 @@
             android:id="@+id/action_nav_mammals_to_detailFragment"
             app:destination="@id/nav_detail"
             app:enterAnim="@android:anim/fade_in" />
-    <argument
-        android:name="detailText"
-        app:argType="string"
-        android:defaultValue="Default Detail Text" />
+        <argument
+            android:name="animal_name"
+            app:argType="string"
+            android:defaultValue="Default Animal Name" />
+        <argument
+            android:name="animal_type"
+            app:argType="string"
+            android:defaultValue="Default Animal Type" />
     </fragment>
 
     <fragment
@@ -50,9 +59,13 @@
             app:destination="@id/nav_detail"
             app:enterAnim="@android:anim/fade_in" />
         <argument
-            android:name="detailText"
+            android:name="animal_name"
             app:argType="string"
-            android:defaultValue="Default Detail Text" />
+            android:defaultValue="Default Animal Name" />
+        <argument
+            android:name="animal_type"
+            app:argType="string"
+            android:defaultValue="Default Animal Type" />
     </fragment>
 
     <fragment
@@ -60,10 +73,11 @@
         android:name="com.funix.animal.ui.detail.DetailFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_detail" >
-    <argument
-        android:name="detailText"
-        app:argType="string" />
-
-
+        <argument
+            android:name="animal_name"
+            app:argType="string" />
+        <argument
+            android:name="animal_type"
+            app:argType="string" />
     </fragment>
 </navigation>

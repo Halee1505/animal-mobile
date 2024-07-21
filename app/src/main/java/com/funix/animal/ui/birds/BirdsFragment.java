@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.funix.animal.adapder.AnimalAdapter;
 import com.funix.animal.database.AnimalDao;
-import com.funix.animal.database.AnimalDatabaseHelper;
 import com.funix.animal.databinding.FragmentBirdsBinding;
 import com.funix.animal.model.Animal;
 import com.funix.animal.model.AnimalViewModel;
@@ -65,14 +64,15 @@ public class BirdsFragment extends Fragment implements AnimalAdapter.OnItemClick
 
     @Override
     public void onItemClick(Animal item) {
-        navigateToDetail(item.getName());
+        navigateToDetail(item.getName(), item.getType());  // Assuming Animal has a getType() method
     }
 
-    private void navigateToDetail(String detailText) {
-        NavDirections action = BirdsFragmentDirections.actionNavBirdsToDetailFragment(detailText);
+    private void navigateToDetail(String animalName, String animalType) {
+        NavDirections action = BirdsFragmentDirections.actionNavBirdsToDetailFragment(animalName, animalType);
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(action);
     }
+
 
     @Override
     public void onDestroyView() {

@@ -56,12 +56,11 @@ public class MammalsFragment extends Fragment implements AnimalAdapter.OnItemCli
     }
     @Override
     public void onItemClick(Animal item) {
-        navigateToDetail(item.getName());
+        navigateToDetail(item.getName(), item.getType());  // Assuming Animal has a getType() method
     }
+    private void navigateToDetail(String animalName, String animalType) {
 
-    private void navigateToDetail(String detailText) {
-
-        NavDirections action = MammalsFragmentDirections.actionNavMammalsToDetailFragment(detailText);
+        NavDirections action = MammalsFragmentDirections.actionNavMammalsToDetailFragment(animalName, animalType);
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(action);
 

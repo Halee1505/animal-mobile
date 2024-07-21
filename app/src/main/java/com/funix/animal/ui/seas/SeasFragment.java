@@ -56,13 +56,12 @@ public class SeasFragment extends Fragment implements AnimalAdapter.OnItemClickL
     }
 
     @Override
-    public void onItemClick(Animal animal) {
-        navigateToDetail(animal.getName());
+    public void onItemClick(Animal item) {
+        navigateToDetail(item.getName(), item.getType());  // Assuming Animal has a getType() method
     }
+    private void navigateToDetail(String animalName, String animalType) {
 
-    private void navigateToDetail(String detailText) {
-
-            NavDirections action = SeasFragmentDirections.actionNavSeasToDetailFragment(detailText);
+            NavDirections action = SeasFragmentDirections.actionNavSeasToDetailFragment(animalName, animalType);
             NavController navController = Navigation.findNavController(requireView());
             navController.navigate(action);
 

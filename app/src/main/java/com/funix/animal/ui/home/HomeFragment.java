@@ -39,43 +39,8 @@ public class HomeFragment extends Fragment {
 
         animalDao = new AnimalDao(getContext());
         animalViewModel = new ViewModelProvider(requireActivity()).get(AnimalViewModel.class);
-
-        Button getDataButton = root.findViewById(R.id.get_data_button);
-        Button setDataButton = root.findViewById(R.id.set_data_button);
-        Button clearDataButton = root.findViewById(R.id.clear_data_button);
-        TextView textView = root.findViewById(R.id.textView);
-
-        // Set data button click listener
-        setDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setData();
-                Toast.makeText(getContext(), "Data clear successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Get data button click listener
-        getDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<Animal> animals = getData();
-                StringBuilder data = new StringBuilder();
-
-                // Add the count of animals to the StringBuilder
-                data.append("Count of Animals: ").append(animals.size()).append("\n\n");
-
-                textView.setText(data.toString());
-            }
-        });
-
-        // Clear data button click listener
-        clearDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearData();
-                Toast.makeText(getContext(), "Data clear successfully", Toast.LENGTH_SHORT).show();
-                }
-        });
+        clearData();
+        setData();
 
         return root;
     }

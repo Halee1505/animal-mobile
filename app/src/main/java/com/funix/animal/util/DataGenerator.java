@@ -46,7 +46,7 @@ public class DataGenerator {
         seaAnimals.add(new Animal("sea", "https://pluspng.com/img-png/cartoon-sea-animals-png-seal-animals-aquarium-circus-sea-zoo-748.png", "", "Seal", "A marine mammal with flippers.", false));
         seaAnimals.add(new Animal("sea", "https://clipartcraft.com/images/seaweed-clipart-template-6.png", "", "Seaweed", "A plant-like organism in the sea.", false));
         seaAnimals.add(new Animal("sea", "https://www.pinclipart.com/picdir/big/36-369079_aquatic-animal-deep-clip-art-crab-sea-animals.png", "", "Crab", "A crustacean with a broad carapace and pincers.", false));
-        seaAnimals.add(new Animal("sea", "https://th.bing.com/th/id/OIP.02xM9N5cpL6vdaz_TElBBQHaFG?rs=1&pid=ImgDetMain", "", "Starfish", "A marine animal with a star-shaped body.", false));
+        seaAnimals.add(new Animal("sea", "https://th.bing.com/th/id/OIP.02xM9N5cpL6vdaz_TElBBQHaFG?rs=1&pid=ImgDetMain", "", "Clownfish", "A marine animal with a star-shaped body.", false));
         return seaAnimals;
     }
 }

@@ -42,6 +42,7 @@ public class DetailPageFragment extends Fragment {
                 titleView.setText(animal.getName());
                 textView.setText(animal.getContent());
                 Glide.with(this).load(animal.getPhoto()).into(imageView);
+                iconView.setImageResource(animal.isFav() ? R.drawable.ic_heart_full : R.drawable.ic_heart);
                 iconView.setOnClickListener(v -> {
                     animal.setFav(!animal.isFav());
                     animalDao.updateAnimal(animal);

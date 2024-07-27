@@ -39,9 +39,10 @@ public class HomeFragment extends Fragment {
 
         animalDao = new AnimalDao(getContext());
         animalViewModel = new ViewModelProvider(requireActivity()).get(AnimalViewModel.class);
-        clearData();
-        setData();
-
+        Integer dataCount = getData().size();
+        if(dataCount == 0){
+            setData();
+        }
         return root;
     }
 

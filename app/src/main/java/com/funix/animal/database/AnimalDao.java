@@ -43,7 +43,7 @@ public class AnimalDao {
         values.put(AnimalDatabaseHelper.COLUMN_NAME, animal.getName());
         values.put(AnimalDatabaseHelper.COLUMN_CONTENT, animal.getContent());
         values.put(AnimalDatabaseHelper.COLUMN_IS_FAV, animal.isFav() ? 1 : 0);
-
+        values.put( AnimalDatabaseHelper.COLUMN_PHONE, animal.getPhone());
         return database.update(AnimalDatabaseHelper.TABLE_ANIMALS, values,
                 AnimalDatabaseHelper.COLUMN_NAME + " = ?", new String[]{animal.getName()});
     }
@@ -83,6 +83,21 @@ public class AnimalDao {
         cursor.close();
         return animals;
     }
+
+    public Animal getAnimalByPhone(String phone){
+        Animal animal = null;
+        System.out.println("xxxxx" + phone);
+        Cursor cursor = database.query(AnimalDatabaseHelper.TABLE_ANIMALS,
+                null, AnimalDatabaseHelper.COLUMN_PHONE + " = ?", new String[]{phone}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()){
+            animal = cursorToAnimal(cursor);
+            cursor.close();
+            return animal;
+        }
+        return animal;
+
+    }
+
     public Animal getAnimalByName(String name) {
         Animal animal = null;
         Cursor cursor = database.query(AnimalDatabaseHelper.TABLE_ANIMALS,
@@ -101,7 +116,8 @@ public class AnimalDao {
         String name = cursor.getString(cursor.getColumnIndexOrThrow(AnimalDatabaseHelper.COLUMN_NAME));
         String content = cursor.getString(cursor.getColumnIndexOrThrow(AnimalDatabaseHelper.COLUMN_CONTENT));
         boolean isFav = cursor.getInt(cursor.getColumnIndexOrThrow(AnimalDatabaseHelper.COLUMN_IS_FAV)) == 1;
+        String phone = cursor.getString(cursor.getColumnIndexOrThrow(AnimalDatabaseHelper.COLUMN_PHONE));
 
-        return new Animal(type,photo, photoBg, name, content, isFav);
+        return new Animal(type,photo, photoBg, name, content, isFav, phone);
     }
 }

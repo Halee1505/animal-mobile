@@ -17,6 +17,7 @@ public class AnimalDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_CONTENT = "content";
     public static final String COLUMN_IS_FAV = "isFav";
+    public static final String COLUMN_PHONE = "phone";
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_ANIMALS + " (" +
@@ -26,7 +27,8 @@ public class AnimalDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_PHOTO_BG + " TEXT, " +
                     COLUMN_NAME + " TEXT, " +
                     COLUMN_CONTENT + " TEXT, " +
-                    COLUMN_IS_FAV + " INTEGER);";
+                    COLUMN_IS_FAV + " INTEGER,"  +
+                    COLUMN_PHONE + " TEXT);";
 
     public AnimalDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

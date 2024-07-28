@@ -14,30 +14,25 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.funix.animal.adapder.AnimalAdapter;
-import com.funix.animal.database.AnimalDao;
+import com.funix.animal.adapder.AnimalItemAdapter;
 import com.funix.animal.databinding.FragmentBirdsBinding;
-import com.funix.animal.model.Animal;
 import com.funix.animal.model.AnimalViewModel;
+import com.funix.animal.util.AssetsHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class BirdsFragment extends Fragment implements AnimalAdapter.OnItemClickListener {
+public class BirdsFragment extends Fragment implements AnimalItemAdapter.OnItemClickListener {
 
     private FragmentBirdsBinding binding;
-    private AnimalDao animalDao;
     private AnimalViewModel animalViewModel;
+    private AssetsHelper assetsHelper;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBirdsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Initialize AnimalDao
-        animalDao = new AnimalDao(requireContext());
+        assetsHelper = new AssetsHelper();
 
         animalViewModel = new ViewModelProvider(requireActivity()).get(AnimalViewModel.class);
 
@@ -47,24 +42,21 @@ public class BirdsFragment extends Fragment implements AnimalAdapter.OnItemClick
 
     public void renderListItems() {
         // Set up RecyclerView
-        RecyclerView recyclerView = binding.recyclerViewBirds;  // Corrected RecyclerView reference
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4); // 2 columns
+        RecyclerView recyclerView = binding.recyclerViewBirds;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4); // 4 columns
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // Fetch the list of birds
-        List<Animal> birdList = animalDao.getAnimalsByType("bird");
+        // Fetch the list of bird image URLs from assets
+        ArrayList<String> birdUrls = assetsHelper.getAnimalImages(getContext(), "bird");
 
-        // Convert List to ArrayList
-        ArrayList<Animal> birdArrayList = new ArrayList<>(birdList);
-
-        // Set up the RecyclerView with the AnimalAdapter
-        AnimalAdapter adapter = new AnimalAdapter(birdArrayList, this);
+        // Set up the RecyclerView with the AnimalItemAdapter
+        AnimalItemAdapter adapter = new AnimalItemAdapter(getContext(), birdUrls, this);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onItemClick(Animal item) {
-        navigateToDetail(item.getName(), item.getType());  // Assuming Animal has a getType() method
+    public void onItemClick(String animalPath) {
+        navigateToDetail(animalPath, "bird");  // Assuming the type is bird for this fragment
     }
 
     private void navigateToDetail(String animalName, String animalType) {
@@ -73,13 +65,9 @@ public class BirdsFragment extends Fragment implements AnimalAdapter.OnItemClick
         navController.navigate(action);
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (animalDao != null) {
-            animalDao.close();
-        }
         binding = null;
     }
 }

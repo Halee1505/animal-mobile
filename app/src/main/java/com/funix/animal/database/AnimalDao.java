@@ -86,7 +86,6 @@ public class AnimalDao {
 
     public Animal getAnimalByPhone(String phone){
         Animal animal = null;
-        System.out.println("xxxxx" + phone);
         Cursor cursor = database.query(AnimalDatabaseHelper.TABLE_ANIMALS,
                 null, AnimalDatabaseHelper.COLUMN_PHONE + " = ?", new String[]{phone}, null, null, null);
         if(cursor != null && cursor.moveToFirst()){

@@ -9,17 +9,17 @@ import java.util.List;
 
 public class DetailPagerAdapter extends FragmentStateAdapter {
     private List<String> animalNames;
-
-    public DetailPagerAdapter(@NonNull Fragment fragment, List<String> animalNames) {
+    private String animalType;
+    public DetailPagerAdapter(@NonNull Fragment fragment, List<String> animalNames, String animalType) {
         super(fragment);
         this.animalNames = animalNames;
+        this.animalType = animalType;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        System.out.println("position:" + position);
-        return DetailPageFragment.newInstance(animalNames.get(position));
+        return DetailPageFragment.newInstance(animalNames.get(position), animalType);
     }
 
     @Override

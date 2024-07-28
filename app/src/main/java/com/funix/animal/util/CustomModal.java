@@ -1,5 +1,6 @@
 package com.funix.animal.util;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ public class CustomModal extends DialogFragment {
     private OnPhoneUpdatedListener listener;
     private Animal animal;
     private EditText editTextPhone;
+    private AssetsHelper assetsHelper;
 
     public interface OnPhoneUpdatedListener {
         void onPhoneUpdated(String newPhone);
@@ -44,7 +46,7 @@ public class CustomModal extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.modal, container, false);
-
+        assetsHelper = new AssetsHelper();
         ImageView dialogImage = view.findViewById(R.id.dialog_image);
          editTextPhone = view.findViewById(R.id.editTextPhone);
         Button saveButton = view.findViewById(R.id.button_save);
@@ -53,9 +55,9 @@ public class CustomModal extends DialogFragment {
         if (getArguments() != null) {
             animal = (Animal) getArguments().getSerializable(ARG_ANIMAL);
             editTextPhone.setText(animal.getPhone());
-            Glide.with(getActivity())
-                    .load(animal.getPhoto())
-                    .into(dialogImage);
+            String imageUrl = animal.getPhoto();
+            Bitmap bitmap = assetsHelper.getBitmapFromPath(getContext(), imageUrl);
+            dialogImage.setImageBitmap(bitmap);
 
         }
 

@@ -14,56 +14,55 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.funix.animal.adapder.AnimalAdapter;
-import com.funix.animal.database.AnimalDao;
+import com.funix.animal.adapder.AnimalItemAdapter;
 import com.funix.animal.databinding.FragmentMammalsBinding;
-import com.funix.animal.model.Animal;
 import com.funix.animal.model.AnimalViewModel;
+import com.funix.animal.util.AssetsHelper;
 
 import java.util.ArrayList;
 
-public class MammalsFragment extends Fragment implements AnimalAdapter.OnItemClickListener {
-    private AnimalDao animalDao;
+public class MammalsFragment extends Fragment implements AnimalItemAdapter.OnItemClickListener {
+
     private FragmentMammalsBinding binding;
     private AnimalViewModel animalViewModel;
+    private AssetsHelper assetsHelper;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMammalsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        // Initialize AnimalDao
-        animalDao = new AnimalDao(requireContext());
+
+        assetsHelper = new AssetsHelper();
 
         animalViewModel = new ViewModelProvider(requireActivity()).get(AnimalViewModel.class);
+
         renderListItems();
         return root;
     }
 
     public void renderListItems() {
         // Set up RecyclerView
-        RecyclerView recyclerView = binding.recyclerViewMammals;  // Corrected RecyclerView reference
-
-        // Initialize item list
-        ArrayList<Animal> listMammals = new ArrayList<>(animalDao.getAnimalsByType("mammal"));
-
-        // Set up the RecyclerView with GridLayoutManager
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4); // 2 columns
+        RecyclerView recyclerView = binding.recyclerViewMammals;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4); // 4 columns
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // Set adapter
-        AnimalAdapter adapter = new AnimalAdapter(listMammals, this);
+        // Fetch the list of mammal image URLs from assets
+        ArrayList<String> mammalUrls = assetsHelper.getAnimalImages(getContext(), "mammal");
+
+        // Set up the RecyclerView with the AnimalItemAdapter
+        AnimalItemAdapter adapter = new AnimalItemAdapter(getContext(), mammalUrls, this);
         recyclerView.setAdapter(adapter);
     }
-    @Override
-    public void onItemClick(Animal item) {
-        navigateToDetail(item.getName(), item.getType());  // Assuming Animal has a getType() method
-    }
-    private void navigateToDetail(String animalName, String animalType) {
 
+    @Override
+    public void onItemClick(String animalPath) {
+        navigateToDetail(animalPath, "mammal");  // Assuming the type is mammal for this fragment
+    }
+
+    private void navigateToDetail(String animalName, String animalType) {
         NavDirections action = MammalsFragmentDirections.actionNavMammalsToDetailFragment(animalName, animalType);
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(action);
-
     }
 
     @Override
